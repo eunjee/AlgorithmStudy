@@ -1,40 +1,27 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Oct  3 18:05:29 2021
-
-@author: 조은지
-"""
+#텀프로젝트 22-01-30
 import sys
-
-sys.setrecursionlimit(10**6)
-
-def find_parent(parent, x):
-    # 루트 노드가 아니라면, 루트 노드를 찾을 때까지 재귀적으로 호출
-    if parent[x] != x:
-        parent[x] = find_parent(parent, parent[x])
-    return parent[x]
-
-# 두 원소가 속한 집합을 합치기
-def union_parent(parent, a, b):
-    a = find_parent(parent, a)
-    b = find_parent(parent, b)
-    if a < b:
-        parent[b] = a
+input = sys.stdin.readline
+sys.setrecursionlimit(111111)
+def dfs(i):
+    global ans
+    visited[i]=True
+    cycle.append(i) #사이클을 이루는 팀을 확인하기 위함
+    num = team[i]
+    if visited[num]: #방문가능한 곳이 끝났는지
+        if num in cycle: #사이클 가능 여부
+            ans += len(cycle[cycle.index(num):])
+        return
     else:
-        parent[a] = b
-
+        dfs(num)
 
 t = int(input())
 for _ in range(t):
     n = int(input())
-    line = list(map(int,input().split()))
-    parent = [0]*(n+1)   
-    for i in range(len(line)):
-        parent[i+1]=line[i]
-    count=0
-    
+    team = [0]+list(map(int,input().split()))
+    visited=[False]*(n+1)
+    ans=0
     for i in range(1,n+1):
-        if find_parent(parent,i)==find_parent(parent,parent[i]):
-            count+=1
-            continue
-    print(n-count)
+        if not visited[i]: #방문하지 않았다면
+            cycle=[]
+            dfs(i)
+    print(n-ans)
