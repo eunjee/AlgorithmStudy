@@ -1,6 +1,6 @@
 #입국심사 22-01-28
 n,m = map(int,input().split()) #입국심사대, 사람수
-time =[0]*(n)
+time =[0]*(n) #입국심사대에서 걸리는 시간
 for i in range(n):
     t = int(input())
     time[i]=t
