@@ -1,6 +1,6 @@
 def solve()
     N, A = int(input()), [0] + list(map(int, input().split()))
-    # S[i]는 1번부터 i번까지의 누적합
+    # S[i]는 1번부터 i번까지의 prefixSum
     S = [0 for _ in range(N+1)]
     for i in range(1, N+1)
         S[i] = S[i-1] + A[i]
