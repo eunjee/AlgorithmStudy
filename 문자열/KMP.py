@@ -14,6 +14,7 @@ def kmp(S,P):
     n = len(S)
     m = len(P)
     pi = get_pi(P)
+    print(pi)
     idx =0
     for i in range(n):
         while idx>0 and S[i]!=P[idx]:

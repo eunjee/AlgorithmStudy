@@ -1,26 +1,18 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Jan 19 23:40:07 2022
+if __name__ == '__main__':
+    n,k = map(int,input().split())
+    dp=[[0]*201 for _ in range(201)]
 
-@author: 조은지
-"""
-import sys
-input = sys.stdin.readline
+    #k*n의 배열
 
-n,k = map(int,input().split())
-dp=[0]*(201)
+    #k가 1혹은 2일 때
+    for i in range(n+1):
+        dp[1][i]=1
+        dp[2][i]=i+1
 
-if k==1:
-    print(1)
-    sys.exit()
-    
-#k=2일 때 
-for i in range(n+1):
-    dp[i]=i+1
+    #k가 3이상일 때
+    for i in range(3,k+1):
+        dp[i][0]=1
+        for j in range(1,n+1):
+            dp[i][j]=(dp[i-1][j]+dp[i][j-1])%1000000000
+    print(dp[k][n])
 
-#k=3부터
-for t in range(3,k+1):
-    for i in range(1,n+1):
-        dp[i]=(dp[i]+dp[i-1])%1000000000
-
-print(dp[n])
